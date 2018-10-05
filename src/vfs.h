@@ -1,0 +1,76 @@
+
+#ifndef __VFS_H__
+#define __VFS_H__
+
+#include "vfs_int.h"
+
+// ---------------------------------------------------------------------------
+// file functions
+//
+
+// vfs_close - close file descriptor and free memory
+//   fd: file descriptor
+//   Returns: VFS_RES_OK or negative value in case of error
+sint32_t vfs_close( vfs_file *fd );
+
+// vfs_read - read data from file
+//   fd: file descriptor
+//   ptr: destination data buffer
+//   len: requested length
+//   Returns: Number of bytes read, or VFS_RES_ERR in case of error
+sint32_t vfs_read( vfs_file *fd, void *ptr, size_t len );
+
+// vfs_write - write data to file
+//   fd: file descriptor
+//   ptr: source data buffer
+//   len: requested length
+//   Returns: Number of bytes written, or VFS_RES_ERR in case of error
+sint32_t vfs_write( vfs_file *fd, const void *ptr, size_t len );
+
+// vfs_lseek - move read/write pointer
+//   fd: file descriptor
+//   off: offset
+//   whence: VFS_SEEK_SET - set pointer to off
+//           VFS_SEEK_CUR - set pointer to current position + off
+//           VFS_SEEK_END - set pointer to end of file + off
+//   Returns: New position, or VFS_RES_ERR in case of error
+sint32_t vfs_lseek( vfs_file *fd, sint32_t off, int whence );
+
+// vfs_flush - flush write cache to file
+//   fd: file descriptor
+//   Returns: VFS_RES_OK, or VFS_RES_ERR in case of error
+sint32_t vfs_flush( vfs_file *fd );
+
+// vfs_size - get current file size
+//   fd: file descriptor
+//   Returns: File size
+uint32_t vfs_size( vfs_file *fd );
+
+// ---------------------------------------------------------------------------
+// dir functions
+//
+
+// vfs_mount - unmount logical drive
+//   name: name of logical drive
+//   num: drive's physical number (eg. SS/CS pin), negative values are ignored
+//   Returns: Volume object, or NULL in case of error
+vfs_vol *vfs_mount( const char *name, int num );
+
+// vfs_open - open file
+//   name: file name
+//   mode: open mode
+//   Returns: File descriptor, or NULL in case of error
+vfs_file *vfs_open( const char *name, const char *mode );
+
+// vfs_stat - stat file or directory
+//   name: file or directory name
+//   buf:  pre-allocated structure to be filled in
+//   Returns: VFS_RES_OK, or VFS_RES_ERR in case of error
+sint32_t vfs_stat( const char *name, struct vfs_stat *buf );
+
+// vfs_remove - remove file or directory
+//   name: file or directory name
+//   Returns: VFS_RES_OK, or VFS_RES_ERR in case of error
+sint32_t vfs_remove( const char *name );
+
+#endif
