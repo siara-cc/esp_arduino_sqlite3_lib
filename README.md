@@ -3,17 +3,18 @@ This library enables access to SQLite database files from SPIFFS or Micro SD Car
 
 ![](d1_mini_msd_shield_strip.png?raw=true)
 
-This library was developed by modifying the VFS layer developed by https://github.com/luizfeliperj for Sqlite3 - NodeMCU integration.
+This library was developed by modifying the VFS layer developed by [[https://github.com/luizfeliperj]Luiz Felipe Silva] for Sqlite3 - NodeMCU integration.
 
 ## Usage
-Sqlite3 C API such as sqlite3_open can be directly invoked. Before calling please invoke:
+Sqlite3 C API such as `sqlite3_open` can be directly invoked. Before calling please invoke:
 
+```c++
    vfs_mount("/SD0", SS); // for Micro SD Shield
    File db_file_obj_1; vfs_set_spiffs_file_obj(&db_file_obj_1); // For SPIFFS
 
-apart from SPI.begin() or SPIFFS.begin() as appropriate.
+apart from `SPI.begin()` or `SPIFFS.begin()` as appropriate.
 
-The SS Pin in D8 on the Micro SD Shield for WeMos D1 mini.  It can be changed accordingly.
+The SS Pin is D8 on the Micro SD Shield for WeMos D1 mini.  It can be changed accordingly.
 
 Please see the examples for full illustration of usage for the two file systems.
 
