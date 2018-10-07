@@ -1,5 +1,5 @@
 # Sqlite3 Arduino library for ESP8266
-This library enables access to SQLite database files from SPIFFS or Micro SD Card through ESP8266 SoC using WeMos D1 mini and MicroSD Shield (shown below) or NodeMCU v1.0 with separate MicroSD Module.
+This library enables access to SQLite database files from SPIFFS or Micro SD Card through ESP8266 SoC using [WeMos D1 mini](https://wiki.wemos.cc/products:d1:d1_mini) and [Micro SD Card Shield](https://wiki.wemos.cc/products:d1_mini_shields:micro_sd_card_shield) (shown below) or [NodeMCU v1.0](https://en.wikipedia.org/wiki/NodeMCU) with separate MicroSD Module.
 
 ![](d1_mini_msd_shield_strip.png?raw=true)
 
@@ -43,6 +43,10 @@ The Sqlite3 code is included with the library.
 * Multiple SD Cards can be supported (using multiple CS Pins). But as of now only one SD Card is supported (`/SD0`).  
 * Before opening database files from SPIFFS, the `vfs_set_spiffs_file_obj()` should be called with a reference to SPIFFS file object
 * A prefix (in front of filenames) such as `/FLASH/` is to be used for SPIFFS and `/SD0/` is to be used for Micro SD,  for opening databases.
+
+## ESP32
+
+This library probably works with ESP32 too. I have not tested it as I don't have ESP32 module.  If you test it, would appreciate if you inform me about the results.
 
 ## Acknowledgements
 * This library was developed by modifying the VFS layer developed by [Luiz Felipe Silva](https://github.com/luizfeliperj). The documentation can be found [here](https://nodemcu.readthedocs.io/en/master/en/modules/sqlite3/).
