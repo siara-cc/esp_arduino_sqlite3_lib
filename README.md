@@ -11,7 +11,7 @@ Sqlite3 C API such as `sqlite3_open` can be directly invoked. Before calling ple
 ```c++
    vfs_mount("/SD0", SS); // for Micro SD Shield
    File db_file_obj_1; vfs_set_spiffs_file_obj(&db_file_obj_1); // For SPIFFS
-`
+```
 apart from `SPI.begin()` or `SPIFFS.begin()` as appropriate.
 
 The SS Pin is D8 on the Micro SD Shield for WeMos D1 mini.  It can be changed accordingly.
@@ -29,8 +29,8 @@ Please download this library, unzip it to the libraries folder of your ESP8266 s
 Windows: C:\Users\(username)\AppData\Roaming\Arduino15
 Linux: /home/<username>/.arduino15
 MacOS: /home/<username>/Library/Arduino15
-`
-Under Arduino15 folder please navigate to packages/esp8266/hardware/esp8266/<version>/libraries
+```
+Under Arduino15 folder please navigate to `packages/esp8266/hardware/esp8266/<version>/libraries`
 
 If you do not have the ESP8266 sdk for Arduino, please see http://esp8266.github.io/Arduino/versions/2.0.0/doc/installing.html for installing it.
 
