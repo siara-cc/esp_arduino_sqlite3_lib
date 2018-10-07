@@ -3,8 +3,6 @@ This library enables access to SQLite database files from SPIFFS or Micro SD Car
 
 ![](d1_mini_msd_shield_strip.png?raw=true)
 
-This library was developed by modifying the VFS layer developed by [Luiz Felipe Silva](https://github.com/luizfeliperj) for Sqlite3 - NodeMCU integration.  The documentation can be found [here](https://nodemcu.readthedocs.io/en/master/en/modules/sqlite3/).
-
 ## Usage
 Sqlite3 C API such as `sqlite3_open` can be directly invoked. Before calling please invoke:
 
@@ -47,7 +45,7 @@ The Sqlite3 code is included with the library.
 * A prefix (in front of filenames) such as `/FLASH/` is to be used for SPIFFS and `/SD0/` is to be used for Micro SD,  for opening databases.
 
 ## Acknowledgements
-* This library was developed by modifying the VFS layer developed by [Luiz Felipe Silva](https://github.com/luizfeliperj)
+* This library was developed by modifying the VFS layer developed by [Luiz Felipe Silva](https://github.com/luizfeliperj). The documentation can be found [here](https://nodemcu.readthedocs.io/en/master/en/modules/sqlite3/).
 * The census2000 and baby names databases were taken from here: http://2016.padjo.org/tutorials/sqlite-data-starterpacks/. But no license information is available.
 * The mdr512.db (Million Domain Rank database) was created with data from [The Majestic Million](https://majestic.com/reports/majestic-million) and is provided under CC 3.0 Attribution license.
 * The [ESP8266 core for Arduino](https://github.com/esp8266/Arduino)
