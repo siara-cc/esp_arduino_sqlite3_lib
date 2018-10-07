@@ -3,7 +3,7 @@ This library enables access to SQLite database files from SPIFFS or Micro SD Car
 
 ![](d1_mini_msd_shield_strip.png?raw=true)
 
-This library was developed by modifying the VFS layer developed by [Luiz Felipe Silva] (https://github.com/luizfeliperj) for Sqlite3 - NodeMCU integration.  The documentation can be found [here](https://nodemcu.readthedocs.io/en/master/en/modules/sqlite3/).
+This library was developed by modifying the VFS layer developed by [Luiz Felipe Silva](https://github.com/luizfeliperj) for Sqlite3 - NodeMCU integration.  The documentation can be found [here](https://nodemcu.readthedocs.io/en/master/en/modules/sqlite3/).
 
 ## Usage
 Sqlite3 C API such as `sqlite3_open` can be directly invoked. Before calling please invoke:
@@ -11,7 +11,7 @@ Sqlite3 C API such as `sqlite3_open` can be directly invoked. Before calling ple
 ```c++
    vfs_mount("/SD0", SS); // for Micro SD Shield
    File db_file_obj_1; vfs_set_spiffs_file_obj(&db_file_obj_1); // For SPIFFS
-
+`
 apart from `SPI.begin()` or `SPIFFS.begin()` as appropriate.
 
 The SS Pin is D8 on the Micro SD Shield for WeMos D1 mini.  It can be changed accordingly.
@@ -41,7 +41,7 @@ If you do not have the ESP8266 sdk for Arduino, please see http://esp8266.github
 * Retrieving from db having 10 million records has been tested. But it needs stack space to be increased to atleast 6144 bytes.  Please modify cores/esp8266/cont.h to increase stack size.
 
 ## Acknowledgements
-* This library was developed by modifying the VFS layer developed by [Luiz Felipe Silva] (https://github.com/luizfeliperj)
+* This library was developed by modifying the VFS layer developed by [Luiz Felipe Silva](https://github.com/luizfeliperj)
 * The census2000 and baby names databases were taken from here: http://2016.padjo.org/tutorials/sqlite-data-starterpacks/. But no license information is available.
 * The mdr512.db (Million Domain Rank database) was created with data from https://majestic.com/reports/majestic-million and is provided under CC 3.0 Attribution license.
 * (Of course) The Arduino platform (https://arduino.cc)
