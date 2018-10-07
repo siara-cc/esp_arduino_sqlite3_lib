@@ -40,9 +40,13 @@ If you do not have the ESP8266 sdk for Arduino, please see http://esp8266.github
 * These problems exist on NodeMCU as well due to low memory on ESP8266
 * Retrieving from db having 10 million records has been tested. But it needs stack space to be increased to atleast 6144 bytes.  Please modify cores/esp8266/cont.h to increase stack size.
 
+## Limitations of this library
+* Multiple SD Cards can be supported (using multiple CS Pins). But as of now only one SD Card is support (/SD0).  
+* Before opening database files from SPIFFS, the vfs_set_spiffs_file_obj() should be called with a reference to SPIFFS file object
+
 ## Acknowledgements
 * This library was developed by modifying the VFS layer developed by [Luiz Felipe Silva](https://github.com/luizfeliperj)
 * The census2000 and baby names databases were taken from here: http://2016.padjo.org/tutorials/sqlite-data-starterpacks/. But no license information is available.
-* The mdr512.db (Million Domain Rank database) was created with data from https://majestic.com/reports/majestic-million and is provided under CC 3.0 Attribution license.
-* The (ESP8266 core for Arduino](https://github.com/esp8266/Arduino)
+* The mdr512.db (Million Domain Rank database) was created with data from [The Majestic Million](https://majestic.com/reports/majestic-million) and is provided under CC 3.0 Attribution license.
+* The [ESP8266 core for Arduino](https://github.com/esp8266/Arduino)
 * [The Arduino platform](https://arduino.cc)
