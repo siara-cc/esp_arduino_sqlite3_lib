@@ -27,10 +27,12 @@ Under Arduino15 folder please navigate to `packages/esp8266/hardware/esp8266/<ve
 
 If you do not have the ESP8266 sdk for Arduino, please see http://esp8266.github.io/Arduino/versions/2.0.0/doc/installing.html for installing it.
 
-## Dependencies
+## Dependencies / pre-requisites
 The SdFat library is required for accessing MicroSD card.  This library can be donwloaded from https://github.com/greiman/SdFat.
 
 The Sqlite3 code is included with the library.
+
+The stack size of ESP8266 Arduino core is to be increased to atleast 6144 bytes to retrieve data from the sample databases as they are fairly large.  Please change CONT_STACKSIZE in `cont.h` under `cores/esp8266`.
 
 ## Limitations on ESP8266
 * The default page size of 4096 leads to "Out of memory" as the size increases over 500 records. Please use page size of 512 using the commands `PRAGMA page_size=512; VACUUM;`, if you are planning to use your own sqlite3 files.
@@ -40,17 +42,16 @@ The Sqlite3 code is included with the library.
 * It takes around 1 second to retrieve from such dataset, even using the index.
 
 ## Limitations of this library
-* Multiple SD Cards can be supported (using multiple CS Pins). But as of now only one SD Card is supported (`/SD0`).  
+* Although multiple SD Cards are feasible (using multiple CS Pins), as of now only one SD Card is supported (`/SD0`).
 * Before opening database files from SPIFFS, the `vfs_set_spiffs_file_obj()` should be called with a reference to SPIFFS file object
-* A prefix (in front of filenames) such as `/FLASH/` is to be used for SPIFFS and `/SD0/` is to be used for Micro SD,  for opening databases.
-
-## ESP32
-
-This library probably works with ESP32 too. I have not tested it as I don't have ESP32 module.  If you test it, would appreciate if you inform me about the results.
+* A prefix (in front of filenames) such as `/FLASH/` is to be used for SPIFFS and `/SD0/` is to be used for Micro SD, for opening databases.
 
 ## Acknowledgements
-* This library was developed by modifying the VFS layer developed by [Luiz Felipe Silva](https://github.com/luizfeliperj). The documentation can be found [here](https://nodemcu.readthedocs.io/en/master/en/modules/sqlite3/).
+* This library was developed by modifying the VFS layer for Sqlite3 developed by [Luiz Felipe Silva](https://github.com/luizfeliperj). The documentation can be found [here](https://nodemcu.readthedocs.io/en/master/en/modules/sqlite3/).
 * The census2000 and baby names databases were taken from here: http://2016.padjo.org/tutorials/sqlite-data-starterpacks/. But no license information is available.
 * The mdr512.db (Million Domain Rank database) was created with data from [The Majestic Million](https://majestic.com/reports/majestic-million) and is provided under CC 3.0 Attribution license.
 * The [ESP8266 core for Arduino](https://github.com/esp8266/Arduino)
 * [The Arduino platform](https://arduino.cc)
+
+## Issues
+Please contact the author (Arundale Ramanathan) at arun@siara.cc if you find any problem (or create issue here).
