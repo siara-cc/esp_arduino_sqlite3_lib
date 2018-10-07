@@ -53,5 +53,8 @@ The stack size of ESP8266 Arduino core is to be increased to atleast 6144 bytes 
 * The [ESP8266 core for Arduino](https://github.com/esp8266/Arduino)
 * [The Arduino platform](https://arduino.cc)
 
+## Screenshot (output of Micro SD example)
+![](output_screenshot.png?raw=true)
+
 ## Issues
 Please contact the author (Arundale Ramanathan) at arun@siara.cc if you find any problem (or create issue here).
