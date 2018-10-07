@@ -73,4 +73,8 @@ sint32_t vfs_stat( const char *name, struct vfs_stat *buf );
 //   Returns: VFS_RES_OK, or VFS_RES_ERR in case of error
 sint32_t vfs_remove( const char *name );
 
+// vfs_set_spiffs_file_obj - sets the file object before opening SPIFFS file
+//    in_filep - pointer to existing file object
+void vfs_set_spiffs_file_obj(void *in_filep);
+
 #endif

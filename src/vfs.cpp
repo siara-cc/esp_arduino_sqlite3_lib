@@ -24,10 +24,12 @@ vfs_file *vfs_open( const char *name, const char *mode ) {
     ret = sdfat_open(name, mode);
   } else {
     ret = spiffs_open(name, mode);
-    Serial.print("Retvfs:");
-    Serial.println((unsigned long)ret);
   }
   return ret;
+}
+
+void vfs_set_spiffs_file_obj(void *in_filep) {
+    set_spiffs_file_obj(in_filep);
 }
 
 sint32_t vfs_stat( const char *name, struct vfs_stat *buf ) {

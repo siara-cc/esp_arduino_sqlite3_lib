@@ -3,7 +3,7 @@
 #define _HAVE_SQLITE_CONFIG_H
 #define SQLITE_CORE                          1
 #define SQLITE_NO_SYNC                       1
-#define YYSTACKDEPTH                        20
+#define YYSTACKDEPTH                        16
 #define SQLITE_TEMP_STORE                    1
 #define SQLITE_SYSTEM_MALLOC                 1
 #define SQLITE_OS_OTHER                      1

@@ -3,6 +3,7 @@
 
 #include "vfs_int.h"
 
+void set_spiffs_file_obj(void *in_filep);
 vfs_file *spiffs_open( const char *name, const char *mode );
 sint32_t spiffs_remove( const char *name );
 sint32_t spiffs_exists( const char *name );

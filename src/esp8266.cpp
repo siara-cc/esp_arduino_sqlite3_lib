@@ -30,7 +30,7 @@ extern "C" {
 
 extern "C" {
     void SerialPrintln(const char *str) {
-        Serial.println(str);
+        //Serial.println(str);
     }
 }
 
@@ -177,12 +177,10 @@ uint32_t filecache_pull (pFileCache_t cache, uint32_t offset, uint32_t len, uint
 	uint32_t r = 0;
 
 	blocks = ( offset % CACHEBLOCKSZ + len ) / (float) CACHEBLOCKSZ;
-SerialPrintln("fcp1");
 	if (blocks == 0.0)
 		return 0;
 	if (!cache->list)
 		return 0;
-SerialPrintln("fcp2");
 
 	if (( blocks - (int) blocks) > 0.0)
 		blocks = blocks + 1.0;
