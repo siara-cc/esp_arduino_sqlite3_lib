@@ -45,6 +45,7 @@ int db_open(const char *filename, sqlite3 **db) {
 
 char *zErrMsg = 0;
 int db_exec(sqlite3 *db, const char *sql) {
+   System.out.println(sql);
    long start = micros();
    int rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
    if (rc != SQLITE_OK) {
