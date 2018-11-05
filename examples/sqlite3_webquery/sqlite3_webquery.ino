@@ -10,6 +10,11 @@
 
     Also need to increase stack size in cores/esp8266/cont.h
     to atleast 6144 (from 4096)
+
+    Please see https://github.com/siara-cc/esp_arduino_sqlite3_lib/
+    for more inforemation.
+
+    Copyright (c) 2018, Siara Logics (cc)
 */
 
 /*
