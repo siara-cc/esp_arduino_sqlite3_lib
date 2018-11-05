@@ -3,7 +3,18 @@ This library enables access to SQLite database files from SPIFFS or Micro SD Car
 
 ![](d1_mini_msd_shield_strip.png?raw=true)
 
+## Why Sqlite on ESP8266 is exciting?
+
+[Sqlite3](http://sqlite.org) is the favourite database of all that is portable and widely used.  Availability in ESP8266 makes it even more portable.  Sqlite can handle terrabyte sized data, ACID compliant and guaranteed to be stable.
+
+So far IoT systems could offer SD Card access, which enabled gigabyte size files accessible, but was not fully utilized because the libraries that were available so far (such as [Arduino Extended Database Library](https://github.com/jwhiddon/EDB) or [SimpleDB](http://www.kendziorra.nl/arduino/103-simpledb-simple-flexible-and-smal)) offered only record number based or linear search and are terribly slow for key based indexed search.
+
+Sqlite stores data in [B+Tree pages](https://en.wikipedia.org/wiki/B%2B_tree) and so can locate data from millions of records using variable length keys without exerting stress on CPU or RAM.  This is demonstrated using the sample databases provided in the example sections.
+
+The Sqlite implementation occupies considerable amount of memory and should be used with caution if amount of free RAM is less than 20k.  Further, due to low RAM available on ESP8266, only Sqlite databases having page size 512 bytes can be supported.  Even with such limitation millions of records and gigabyte sized databases can be accessed.
+
 ## Usage
+
 Sqlite3 C API such as `sqlite3_open` can be directly invoked. Before calling please invoke:
 
 ```c++
@@ -36,8 +47,6 @@ The stack size of ESP8266 Arduino core is to be increased to atleast 6144 bytes 
 
 ## Limitations on ESP8266
 * The default page size of 4096 leads to "Out of memory" as the size increases over 500 records. Please use page size of 512 using the commands `PRAGMA page_size=512; VACUUM;`, if you are planning to use your own sqlite3 files.
-* Inserting records over a 1000 records gives "Out of memory"
-* These problems exist on NodeMCU as well due to low memory on ESP8266
 * Retrieving from db having 10 million records has been tested. But it needs stack space to be increased to atleast 6144 bytes.  Please modify cores/esp8266/cont.h to increase stack size.
 * It takes around 1 second to retrieve from such dataset, even using the index.
 
