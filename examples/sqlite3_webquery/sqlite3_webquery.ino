@@ -72,18 +72,11 @@ void handleRoot() {
   temp = "<html><head>\
       <title>ESP8266 Demo</title>\
       <style>\
-      body { background-color: #cccccc; font-family: Arial, Helvetica, Sans-Serif; font-size: large; Color: #000088; }\
+      body { font-family: Arial, Helvetica, Sans-Serif; font-size: large; Color: #000088; }\
       </style>\
   </head>\
   <body>\
       <h1>Hello from ESP8266!</h1>\
-      <p>Uptime: ";
-  temp += hr;
-  temp += ":";
-  temp += min % 60;
-  temp += ":";
-  temp += sec % 60;
-  temp += "</p>\
       <h2>Query gendered names database</h2>\
       <form name='params' method='GET' action='query_db'>\
       Enter from: <input type=text style='font-size: large' value='Bob' name='from'/> \
@@ -216,10 +209,10 @@ void setup ( void ) {
       server.setContentLength(CONTENT_LENGTH_UNKNOWN);
       String resp = "<html><head><title>ESP8266 Database query through web server</title>\
           <style>\
-          body { background-color: #cccccc; font-family: Arial, Helvetica, Sans-Serif; font-size: large; Color: #000088; }\
-          </style><head><body><h1>ESP8266 Database query through web server</h1><h2>";
+          body { font-family: Arial, Helvetica, Sans-Serif; font-size: large; Color: #000088; }\
+          </style><head><body><h1>ESP8266 Database query through web server</h1><h3>";
       resp += sql;
-      resp += "</h2><br><table cellspacing='1' cellpadding='1' border='1'><tr><td>Year</td><td>State</td><td>Name</td><td>Total babies</td><td>Primary Sex</td><td>Ratio</td><td>Per 100k</td></tr>";
+      resp += "</h3><table cellspacing='1' cellpadding='1' border='1'><tr><td>Year</td><td>State</td><td>Name</td><td>Total babies</td><td>Primary Sex</td><td>Ratio</td><td>Per 100k</td></tr>";
       server.send ( 200, "text/html", resp.c_str());
       while (sqlite3_step(res) == SQLITE_ROW) {
           resp = "<tr><td>";
@@ -240,7 +233,7 @@ void setup ( void ) {
           server.sendContent(resp);
           rec_count++;
       }
-      resp = "</table><br><br>Number of records: ";
+      resp = "</table><br>Number of records: ";
       resp += rec_count;
       resp += ".<br><br><input type=button onclick='location.href=\"/\"' value='back'/>";
       server.sendContent(resp);
