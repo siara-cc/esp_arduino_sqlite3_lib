@@ -68,10 +68,17 @@ Output of Micro SD example:
 
 ![](output_screenshot.png?raw=true)
 
-Output of SD Card database query through WebServer example:
+Output of [SD Card database query through WebServer example](https://github.com/siara-cc/esp_arduino_sqlite3_lib/tree/master/examples/sqlite3_webquery):
 
 ![](output_web_1.png?raw=true)
 ![](output_web_2.png?raw=true)
+
+Output of [StackOverflow Users db query example](https://github.com/siara-cc/esp_arduino_sqlite3_lib/tree/master/examples/sqlite3_stackoverflow_users):
+
+![](output_web_so.png?raw=true)
+![](output_web_so_id.png?raw=true)
+![](output_web_so_name.png?raw=true)
+![](output_web_so_loc.png?raw=true)
 
 ## Issues
 Please contact the author (Arundale Ramanathan) at arun@siara.cc if you find any problem (or create issue here).
