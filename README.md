@@ -55,6 +55,36 @@ The stack size of ESP8266 Arduino core is to be increased to atleast 6144 bytes 
 * Before opening database files from SPIFFS, the `vfs_set_spiffs_file_obj()` should be called with a reference to SPIFFS file object
 * A prefix (in front of filenames) such as `/FLASH/` is to be used for SPIFFS and `/SD0/` is to be used for Micro SD, for opening databases.
 
+## Compression with Shox96
+
+This implementation of `sqlite3` includes two functions `shox96_0_2c()` and `shox96_0_2d()` for compressing and decompressing text data.
+
+Shox96 is a compression technique developed for reducing storage size of Short Strings. Details of how it works can be found [here](https://github.com/siara-cc/Shox96).
+
+As of now it can work on only strings made of 'A to Z', 'a to z', '0-9', Special Characters such as &*() etc. found on keyboard, CR, LF, TAB and Space.
+
+In general it can achieve upto 40% size reduction for Short Strings.
+
+### Usage
+
+The following set of commands demonstrate how compression can be accomplished:
+
+```sql
+create table test (b1 blob);
+insert into test values (shox96_0_2c('Hello World'));
+insert into test values (shox96_0_2c('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'));
+select txt, length(txt) txt_len from (select shox96_0_2d(b1) txt from test);
+select length(b1) compressed_len from test;
+```
+
+See screenshots section for output.
+
+### Limitations (for Shox96)
+
+- Trying to decompress any blob that was not compressed using `shox96_0_2c()` will crash the program.
+- It does not work if the string has binary characters. that is, other than ASCII 32 to 126, CR, LF and Tab.
+- Dictionary based compression / decompression is not yet implemented.
+
 ## Acknowledgements
 * This library was developed by modifying the VFS layer for Sqlite3 developed by [Luiz Felipe Silva](https://github.com/luizfeliperj). The documentation can be found [here](https://nodemcu.readthedocs.io/en/master/en/modules/sqlite3/).
 * The census2000 and baby names databases were taken from here: http://2016.padjo.org/tutorials/sqlite-data-starterpacks/. But no license information is available.
@@ -64,21 +94,26 @@ The stack size of ESP8266 Arduino core is to be increased to atleast 6144 bytes 
 
 ## Screenshots
 
-Output of Micro SD example:
+### Output of Micro SD example
 
 ![](output_screenshot.png?raw=true)
 
-Output of [SD Card database query through WebServer example](https://github.com/siara-cc/esp_arduino_sqlite3_lib/tree/master/examples/sqlite3_webquery):
+### Output of [SD Card database query through WebServer example](https://github.com/siara-cc/esp_arduino_sqlite3_lib/tree/master/examples/sqlite3_webquery):
 
 ![](output_web_1.png?raw=true)
 ![](output_web_2.png?raw=true)
 
-Output of [StackOverflow Users db query example](https://github.com/siara-cc/esp_arduino_sqlite3_lib/tree/master/examples/sqlite3_stackoverflow_users):
+### Output of [StackOverflow Users db query example](https://github.com/siara-cc/esp_arduino_sqlite3_lib/tree/master/examples/sqlite3_stackoverflow_users):
 
 ![](output_web_so.png?raw=true)
 ![](output_web_so_id.png?raw=true)
 ![](output_web_so_name.png?raw=true)
 ![](output_web_so_loc.png?raw=true)
 
+### Output of Shox96 Compression example
+
+![](output_shox.png?raw=true)
+
 ## Issues
+
 Please contact the author (Arundale Ramanathan) at arun@siara.cc if you find any problem (or create issue here).
