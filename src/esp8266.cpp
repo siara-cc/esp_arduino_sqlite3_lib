@@ -22,7 +22,7 @@ extern "C" {
 #include "user_interface.h"
 }
 
-#include "shox96_0_2_0.h"
+#include "shox96_0_2.h"
 
 // From https://stackoverflow.com/questions/19758270/read-varint-from-linux-sockets#19760246
 // Encode an unsigned 64-bit varint.  Returns number of encoded bytes.
@@ -361,29 +361,32 @@ int esp8266mem_FileSize(sqlite3_file *id, sqlite3_int64 *size)
 	return SQLITE_OK;
 }
 
+const char *MODE_READONLY = "r";
+const char *MODE_READPLUS = "r+";
+const char *MODE_WRITEPLUS = "w+";
 int esp8266_Open( sqlite3_vfs * vfs, const char * path, sqlite3_file * file, int flags, int * outflags )
 {
 	int rc;
-	char *mode = "r";
+	const char *mode = MODE_READONLY;
 	esp8266_file *p = (esp8266_file*) file;
 
 	if ( path == NULL ) return SQLITE_IOERR;
-	if( flags&SQLITE_OPEN_READONLY )  mode = "r";
+	if( flags&SQLITE_OPEN_READONLY )  mode = MODE_READONLY;
 	if( flags&SQLITE_OPEN_READWRITE || flags&SQLITE_OPEN_MAIN_JOURNAL ) {
 		int result;
 		if (SQLITE_OK != esp8266_Access(vfs, path, flags, &result))
 			return SQLITE_CANTOPEN;
 
 		if (result == 1)
-			mode = "r+";
+			mode = MODE_READPLUS;
 		else
-			mode = "w+";
+			mode = MODE_WRITEPLUS;
 	}
 
 	dbg_printf("esp8266_Open: 1o %s %s\n", path, mode);
 	memset (p, 0, sizeof(esp8266_file));
 
-        strncpy (p->name, path, ESP8266_DEFAULT_MAXNAMESIZE);
+  strncpy (p->name, path, ESP8266_DEFAULT_MAXNAMESIZE);
 	p->name[ESP8266_DEFAULT_MAXNAMESIZE-1] = '\0';
 
 	if( flags&SQLITE_OPEN_MAIN_JOURNAL ) {
@@ -646,7 +649,7 @@ static void shox96_0_2c(sqlite3_context *context, int argc, sqlite3_value **argv
 
   outBuf = (unsigned char *) malloc( nOut+vIntLen );
 	memcpy(outBuf, vInt, vIntLen);
-  nOut2 = shox96_0_2_0_compress((const char *) inBuf, nIn, (char *) &outBuf[vIntLen], NULL);
+  nOut2 = shox96_0_2_compress((const char *) inBuf, nIn, (char *) &outBuf[vIntLen], NULL);
   sqlite3_result_blob(context, outBuf, nOut2+vIntLen, free);
 }
 
@@ -670,7 +673,7 @@ static void shox96_0_2d(sqlite3_context *context, int argc, sqlite3_value **argv
 	nOut = (unsigned int) inBufLen64;
   outBuf = (unsigned char *) malloc( nOut );
   //nOut2 = (long int)nOut;
-  nOut2 = shox96_0_2_0_decompress((const char *) (inBuf + vIntLen), nIn - vIntLen, (char *) outBuf, NULL);
+  nOut2 = shox96_0_2_decompress((const char *) (inBuf + vIntLen), nIn - vIntLen, (char *) outBuf, NULL);
   //if( rc!=Z_OK ){
   //  free(outBuf);
   //}else{
