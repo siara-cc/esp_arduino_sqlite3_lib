@@ -1,4 +1,7 @@
 # Sqlite3 Arduino library for ESP8266
+
+(Presently please use 1.0.7 version of `SdFat` library with this repo.  See [this](https://github.com/siara-cc/esp_arduino_sqlite3_lib/issues/5) issue for more details).
+
 This library enables access to SQLite database files from SPIFFS or Micro SD Card through ESP8266 SoC using [WeMos D1 mini](https://wiki.wemos.cc/products:d1:d1_mini) and [Micro SD Card Shield](https://wiki.wemos.cc/products:d1_mini_shields:micro_sd_card_shield) (shown below) or [NodeMCU v1.0](https://en.wikipedia.org/wiki/NodeMCU) with separate MicroSD Module.
 
 ![](d1_mini_msd_shield_strip.png?raw=true)
