@@ -49,14 +49,14 @@ The Sqlite3 code is included with the library.
 The stack size of ESP8266 Arduino core is to be increased to atleast 6144 bytes to retrieve data from the sample databases as they are fairly large.  Please change CONT_STACKSIZE in `cont.h` under `cores/esp8266`.
 
 ## Limitations on ESP8266
-* The default page size of 4096 leads to "Out of memory" as the size increases over 500 records. Please use page size of 512 using the commands `PRAGMA page_size=512; VACUUM;`, if you are planning to use your own sqlite3 files.
+* The default page size of 4096 leads to "Out of memory" as the size increases over 500 records. Please use page size of 512 using the commands `PRAGMA page_size=512; VACUUM;` after opening the database using `sqlite3.exe`, if you are planning to use your own sqlite3 files.
 * Retrieving from db having 10 million records has been tested. But it needs stack space to be increased to atleast 6144 bytes.  Please modify cores/esp8266/cont.h to increase stack size.
 * It takes around 1 second to retrieve from such dataset, even using the index.
 
 ## Limitations of this library
 * Although multiple SD Cards are feasible (using multiple CS Pins), as of now only one SD Card is supported (`/SD0`).
 * Before opening database files from SPIFFS, the `vfs_set_spiffs_file_obj()` should be called with a reference to SPIFFS file object
-* A prefix (in front of filenames) such as `/FLASH/` is to be used for SPIFFS and `/SD0/` is to be used for Micro SD, for opening databases.
+* A prefix (in front of filenames) such as `/FLASH/` is to be used for SPIFFS and `/SD0/` is to be used for Micro SD, for opening databases. `/FLASH` refers to the root folder of SPIFFS and `/SD0` refers to the root folder to Micro SD Card file system.  So if the file `babyname.db` is present in the root folder of SPIFFS, it is to be opened as `/FLASH/babyname.db`
 
 ## Compression with Shox96
 
@@ -86,7 +86,6 @@ See screenshots section for output.
 
 - Trying to decompress any blob that was not compressed using `shox96_0_2c()` will crash the program.
 - It does not work if the string has binary characters. that is, other than ASCII 32 to 126, CR, LF and Tab.
-- Dictionary based compression / decompression is not yet implemented.
 
 ## Acknowledgements
 * This library was developed by modifying the VFS layer for Sqlite3 developed by [Luiz Felipe Silva](https://github.com/luizfeliperj). The documentation can be found [here](https://nodemcu.readthedocs.io/en/master/en/modules/sqlite3/).
